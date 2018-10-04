@@ -38,13 +38,39 @@ Carnisseries <- mutate(Carnisseries, Any = year(date))
 Venedors <- data.table::setDT(distinct(data.frame(Carnisseries$venedorID, Carnisseries$ID_botiga)),
                               keep.rownames = T)
 names(Venedors) <- c("ID_venedor", "venedorID", "ID_botiga")
+write.csv(Venedors, file = "Venedors.csv")
 
 Carnisseries <- left_join(Carnisseries, Venedors)
 Carnisseries$ID_venedor <- as.integer(Carnisseries$ID_venedor)
 Carnisseries <- Carnisseries[,-3]
 
 
-ggplot(Carnisseries[!Carnisseries$billing<1,], aes(x=hora, y=billing)) + stat_summary(fun.y = "mean", geom = "bar")
+####Datasets de cada botiga####
+
+#Botiga 5b4
+Botiga_5b4 <- filter(Carnisseries, Carnisseries$ID_botiga=="5b4")
+write.csv(Botiga_5b4, file = "Botiga_5b4.csv")
+
+#Botiga 046
+Botiga_046 <- filter(Carnisseries, Carnisseries$ID_botiga=="046")
+write.csv(Botiga_046, file = "Botiga_046.csv")
+
+#Botiga 19a
+Botiga_19a <- filter(Carnisseries, Carnisseries$ID_botiga=="19a")
+write.csv(Botiga_19a, file = "Botiga_19a.csv")
+
+#Botiga 432
+Botiga_432 <- filter(Carnisseries, Carnisseries$ID_botiga=="432")
+write.csv(Botiga_432, file = "Botiga_432.csv")
+
+#Botiga 562
+Botiga_562 <- filter(Carnisseries, Carnisseries$ID_botiga=="562")
+write.csv(Botiga_562, file = "Botiga_562.csv")
+
+#Botiga 5c3
+Botiga_5c3 <- filter(Carnisseries, Carnisseries$ID_botiga=="5c3")
+write.csv(Botiga_5c3, file = "Botiga_5c3.csv")
+
 
 
 
