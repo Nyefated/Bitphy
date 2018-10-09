@@ -34,43 +34,47 @@ Carnisseries <- mutate(Carnisseries, mes = month(date, label = T))
 levels(Carnisseries$mes) <- c("gener","febrer","març","abril","maig","juny","juliol","agost",
                                      "setembre","octubre","novembre","desembre")
 Carnisseries <- mutate(Carnisseries, Any = year(date))
+Carnisseries <- mutate(Carnisseries, dia = day(date))
 
 Venedors <- data.table::setDT(distinct(data.frame(Carnisseries$venedorID, Carnisseries$ID_botiga)),
                               keep.rownames = T)
 names(Venedors) <- c("ID_venedor", "venedorID", "ID_botiga")
-write.csv(Venedors, file = "Venedors.csv")
+save(Venedors, file = "Venedors")
 
 Carnisseries <- left_join(Carnisseries, Venedors)
 Carnisseries$ID_venedor <- as.integer(Carnisseries$ID_venedor)
 Carnisseries <- Carnisseries[,-3]
+save(Carnisseries, file = "Carnisseries")
 
 
 ####Datasets de cada botiga####
 
-#Botiga 5b4
+#Botiga 5b4 (14 venedors)
 Botiga_5b4 <- filter(Carnisseries, Carnisseries$ID_botiga=="5b4")
-write.csv(Botiga_5b4, file = "Botiga_5b4.csv")
+save(Botiga_5b4, file = "Botiga_5b4")
 
-#Botiga 046
+#Botiga 046 (7 venedors)
 Botiga_046 <- filter(Carnisseries, Carnisseries$ID_botiga=="046")
-write.csv(Botiga_046, file = "Botiga_046.csv")
+save(Botiga_046, file = "Botiga_046")
 
-#Botiga 19a
+#Botiga 19a (1 venedor)
 Botiga_19a <- filter(Carnisseries, Carnisseries$ID_botiga=="19a")
-write.csv(Botiga_19a, file = "Botiga_19a.csv")
+save(Botiga_19a, file = "Botiga_19a")
 
-#Botiga 432
+#Botiga 432 (14 venedors)
 Botiga_432 <- filter(Carnisseries, Carnisseries$ID_botiga=="432")
-write.csv(Botiga_432, file = "Botiga_432.csv")
+save(Botiga_432, file = "Botiga_432")
 
-#Botiga 562
+#Botiga 562 (17 venedors)
 Botiga_562 <- filter(Carnisseries, Carnisseries$ID_botiga=="562")
-write.csv(Botiga_562, file = "Botiga_562.csv")
+save(Botiga_562, file = "Botiga_562")
 
-#Botiga 5c3
+#Botiga 5c3 (12 venedors)
 Botiga_5c3 <- filter(Carnisseries, Carnisseries$ID_botiga=="5c3")
-write.csv(Botiga_5c3, file = "Botiga_5c3.csv")
+save(Botiga_5c3, file = "Botiga_5c3")
 
+#Fer analisis per botiga perque hi ha bastanta diferencia entre els treballadors d'una
+#i altra
 
 
 
